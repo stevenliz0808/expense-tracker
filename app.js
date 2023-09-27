@@ -10,6 +10,10 @@ app.get("/records/new", (req, res) => {
   res.render("new");
 });
 
+app.get("/records/:id/edit", (req, res) => {
+  res.render("edit");
+});
+
 app.get("/records", (req, res) => {
   res.render("home");
 });
