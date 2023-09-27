@@ -5,10 +5,17 @@ const port = 3000;
 
 app.engine('.hbs', engine({extname: '.hbs'}))
 app.set('view engine', '.hbs')
-// app.set('view', './views')
+
+app.get("/records/new", (req, res) => {
+  res.render("new");
+});
+
+app.get("/records", (req, res) => {
+  res.render("home");
+});
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.redirect('/records')
 });
 
 app.listen(port, () => {
