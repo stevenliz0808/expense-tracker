@@ -8,7 +8,7 @@ app.set('view engine', '.hbs')
 // app.set('view', './views')
 
 app.get("/", (req, res) => {
-  res.send("home");
+  res.render("home");
 });
 
 app.listen(port, () => {
