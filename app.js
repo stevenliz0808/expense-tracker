@@ -21,7 +21,9 @@ app.get("/records/:id/edit", (req, res, next) => {
   return Record.findByPk(id, {
     raw: true,
   })
-    .then((record) => res.render("edit", {record}))
+    .then((record) => {
+      if (!record) throw new Error('此紀錄不存在')
+      res.render("edit", {record})})
     .catch(err => next(err))
 });
 
@@ -60,6 +62,18 @@ app.post("/records", (req, res, next) => {
     })
     .catch(err => next(err))
 });
+
+app.delete("/records/:id", (req, res, next) => {
+  const id = req.params.id
+  return Record.findByPk(id)
+    .then((record) => {
+      if (!record) throw new Error("此紀錄不存在")
+      return record.destroy()
+    })
+    .then(() => {
+      res.redirect('/records')
+    })
+})
 
 app.get("/", (req, res) => {
   res.redirect('/records')
