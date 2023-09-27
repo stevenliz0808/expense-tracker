@@ -10,20 +10,22 @@
     <h1 class="ms-3" style="color: orangered;">25550</h1>
   </div>
   <ol class="list-group mt-3">
+    {{#each records}}
     <li class="list-group-item d-flex justify-content-between align-items-start">
       <i class="fa-solid fa-utensils fa-2xl align-self-stretch d-flex align-items-center me-2" style="color: #208081;"></i>
       <div class="ms-2 me-auto">
-        <div class="fw-bold">午餐</div>
-        2020.08.08
+        <div class="fw-bold">{{this.categoryId}}</div>
+        {{this.date}}
       </div>
       <div class="align-self-stretch d-flex align-items-center me-2 me-auto fs-3">
-        60
+        {{this.amount}}
       </div>
       <div class="align-self-stretch d-flex align-items-center me-1 ms-auto">
         <a href="/records/1/edit" class="btn btn-outline-secondary me-1">修改</a>
         <a href="" class="btn btn-outline-secondary">刪除</a>
       </div>
     </li>
+    {{/each}}
   </ol>
   <div class="d-flex justify-content-center mt-5" >
     <a href="/records/new" class="btn btn-primary btn-lg w-50" style="background-color: orangered;">新增支出</a>

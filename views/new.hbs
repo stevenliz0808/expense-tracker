@@ -7,20 +7,20 @@
   </div>
   <div class="mb-3">
     <label for="date" class="form-label">日期* ：</label>
-    <input type="date" class="form-control" id="date" required>
+    <input type="date" class="form-control" id="date" name="date" required>
   </div>
   <div class="mb-3">
     <label for="category" class="form-label">類別* ：</label>
-    <select class="form-select" id="category" name="category" required>
-      <option selected>select</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+    <select class="form-select" id="category" name="categoryId" required>
+      <option>select</option>
+      <option value="1">飲食</option>
+      <option value="2">娛樂</option>
+      <option value="3">交通</option>
     </select>
   </div>
   <div class="mb-3">
-    <label for="money" class="form-label">金額* ：</label>
-    <input type="number" class="form-control" id="money" name="money" required>
+    <label for="amount" class="form-label">金額* ：</label>
+    <input type="number" class="form-control" id="amount" name="amount" required>
   </div>
   <div class="d-flex justify-content-center mt-5" >
       <button type="submit" class="btn btn-primary btn-lg w-50" style="background-color: orangered;">新增支出</button>

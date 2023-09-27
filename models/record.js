@@ -16,14 +16,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Record.init({
     name: DataTypes.STRING,
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     amount: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     categoryId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Record',
-    tableName:'Records'
+    tableName:'Records',
+    underscored: true
   });
   return Record;
 };
