@@ -9,13 +9,10 @@
   </div>
   <div class="mb-3">
     <label for="category" class="form-label">類別* ：</label>
-    <select class="form-select" id="category" name="category" required>
-      <option>select</option>
-      <option value="1">家居物業</option>
-      <option value="2">交通出行</option>
-      <option value="3">休閒娛樂</option>
-      <option value="4">餐飲食品</option>
-      <option value="5">其他</option>
+    <select class="form-select" id="category" name="categoryId" required>
+      {{#each categories}}
+      <option value={{this.id}} {{#ifCond this.id ../record.categoryId}}selected{{/ifCond}}>{{this.name}}</option>
+      {{/each}}
     </select>
   </div>
   <div class="mb-3">

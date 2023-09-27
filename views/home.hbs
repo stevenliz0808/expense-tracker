@@ -1,9 +1,9 @@
 <div class="container w- mt-5">
   <select class="form-select" aria-label="Default select example">
     <option selected>類別</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
+    {{#each categories}}
+    <option value={{this.id}}>{{this.name}}</option>
+    {{/each}}
   </select>
   <div class="d-flex mt-3 ms-3">
     <p>總金額</p>
@@ -12,7 +12,7 @@
   <ol class="list-group mt-3">
     {{#each records}}
     <li class="list-group-item d-flex justify-content-between align-items-start">
-      <i class="fa-solid fa-utensils fa-2xl align-self-stretch d-flex align-items-center me-2" style="color: #208081;"></i>
+      <i class="fa-solid {{this.Category.icon}} fa-2xl align-self-stretch d-flex align-items-center me-2" style="color: #208081;"></i>
       <div class="ms-2 me-auto">
         <div class="fw-bold">{{this.name}}</div>
         {{this.date}}

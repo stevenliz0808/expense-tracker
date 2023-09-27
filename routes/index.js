@@ -1,16 +1,17 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const { Record } = require("../models");
+const { Record, Category } = require("../models");
 
 router.get("/records/new", (req, res) => {
-  res.render("new");
+  return Category.findAll({ raw: true }).then((categories) =>
+    res.render("new", { categories })
+  );
 });
 
 router.post("/records", (req, res, next) => {
-  const { name, date, amount } = req.body;
+  const { name, date, amount, categoryId } = req.body;
   const userId = 1;
-  const categoryId = 1;
   return Record.create({ name, date, amount, userId, categoryId })
     .then(() => {
       req.flash("success", "新增成功");
@@ -24,12 +25,15 @@ router.post("/records", (req, res, next) => {
 
 router.get("/records/:id/edit", (req, res, next) => {
   const id = req.params.id;
-  return Record.findByPk(id, {
-    raw: true,
-  })
-    .then((record) => {
+  return Promise.all([
+    Category.findAll({ raw: true }),
+    Record.findByPk(id, {
+      raw: true,
+    }),
+  ])
+    .then(([categories, record]) => {
       if (!record) throw new Error("此紀錄不存在");
-      res.render("edit", { record });
+      res.render("edit", { record, categories });
     })
     .catch((err) => next(err));
 });
@@ -70,14 +74,21 @@ router.delete("/records/:id", (req, res, next) => {
 });
 
 router.get("/records", (req, res) => {
-  return Record.findAll({
-    raw: true,
-  }).then((records) => {
+  return Promise.all([
+    Record.findAll({
+      include: Category,
+      nest: true,
+      raw: true,
+    }),
+    Category.findAll({
+      raw: true,
+    }),
+  ]).then(([records, categories]) => {
     let totalAmount = 0;
     for (i = 0; i < records.length; i++) {
       totalAmount += records[i].amount;
     }
-    res.render("home", { records, totalAmount });
+    res.render("home", { records, totalAmount, categories });
   });
 });
 
@@ -85,4 +96,4 @@ router.get("/", (req, res) => {
   res.redirect("/records");
 });
 
-module.exports = router
+module.exports = router;
